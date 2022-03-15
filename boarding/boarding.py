@@ -25,16 +25,19 @@ class Passenger:
     def __repr__(self):
         return f'{self.column}{self.row}{"*" if self.seated else ""}'
 
-grid = pd.DataFrame(np.array([[0 for i in range(7)] for i in range(ROWS)])).astype(object)
+grid = pd.DataFrame(np.zeros([ROWS, 7])).astype(object)
 grid.columns = list('ABC DEF')
 grid.index = range(1, ROWS + 1)[::-1]
-
-figs = []
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 ax.set_xticks(ticks=np.arange(7), labels=grid.columns)
 ax.set_yticks(ticks=np.arange(ROWS), labels=grid.index)
+
+figs = []
+
+image = ax.imshow(np.array(grid, dtype=int))
+figs.append([image])
 
 all = [Passenger(i, j) for i in 'ABCFED' for j in range(ROWS, 0, -1)]
 
@@ -60,7 +63,7 @@ passengers = models[MODEL]
 time = 0
 
 while len(passengers) or sum(list(map(int, grid[' ']))) != 0:
-    for i in ['B', 'E', 'C', 'D', ' ']:
+    for i in 'BECD ':
         for j in grid.index:
             cur = grid[i][j]
             if cur == 0 or cur.seated:
@@ -106,8 +109,8 @@ while len(passengers) or sum(list(map(int, grid[' ']))) != 0:
                         grid['E'][j] = cur
                         grid[i][j] = temp
                         grid[i][j].seated = False
-                else:
-                    if cur.timer > 0:
+                elif i == ' ':
+                    if cur.timer:
                         grid[i][j].timer -= 1
                     else:
                         if cur.column in list('ABC'):
