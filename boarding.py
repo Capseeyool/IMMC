@@ -63,79 +63,79 @@ while len(passengers) or sum(list(map(int, grid[' ']))) != 0:
     for i in ['B', 'E', 'C', 'D', ' ']:
         for j in grid.index:
             cur = grid[i][j]
-            if cur != 0:
-                if cur.seated == False:
-                    if cur.row == j:
-                        if i == 'B':
-                            if grid['A'][j] == 0:
-                                grid['A'][j] = cur
-                                grid['A'][j].seated = True
+            if cur == 0 or cur.seated:
+                continue
+            if cur.row == j:
+                if i == 'B':
+                    if grid['A'][j] == 0:
+                        grid['A'][j] = cur
+                        grid['A'][j].seated = True
+                        grid[i][j] = 0
+                    else:
+                        temp = grid['A'][j]
+                        grid['A'][j] = cur
+                        grid[i][j] = temp
+                        grid[i][j].seated = False
+                elif i == 'E':
+                    if grid['F'][j] == 0:
+                        grid['F'][j] = cur
+                        grid['F'][j].seated = True
+                        grid[i][j] = 0
+                    else:
+                        temp = grid['F'][j]
+                        grid['F'][j] = cur
+                        grid[i][i] = temp
+                        grid[i][j].seated = False
+                elif i == 'C':
+                    if grid['B'][j] == 0:
+                        grid['B'][j] = cur
+                        grid['B'][j].seated = True if cur.column == 'B' else False
+                        grid[i][j] = 0
+                    elif ord(cur.column) < ord(grid['B'][j].column):
+                        temp = grid['B'][j]
+                        grid['B'][j] = cur
+                        grid[i][j] = temp
+                        grid[i][j].seated = False
+                elif i == 'D':
+                    if grid['E'][j] == 0:
+                        grid['E'][j] = cur
+                        grid['E'][j].seated = True if cur.column == 'E' else False
+                        grid[i][j] = 0
+                    elif ord(cur.column) > ord(grid['E'][j].column):
+                        temp = grid['E'][j]
+                        grid['E'][j] = cur
+                        grid[i][j] = temp
+                        grid[i][j].seated = False
+                else:
+                    if cur.timer > 0:
+                        grid[i][j].timer -= 1
+                    else:
+                        if cur.column in list('ABC'):
+                            if grid['C'][j] == 0:
+                                grid['C'][j] = cur
+                                grid['C'][j].seated = True if cur.column == 'C' else False
                                 grid[i][j] = 0
-                            else:
-                                temp = grid['A'][j]
-                                grid['A'][j] = cur
-                                grid[i][j] = temp
-                                grid[i][j].seated = False
-                        elif i == 'E':
-                            if grid['F'][j] == 0:
-                                grid['F'][j] = cur
-                                grid['F'][j].seated = True
-                                grid[i][j] = 0
-                            else:
-                                temp = grid['F'][j]
-                                grid['F'][j] = cur
-                                grid[i][i] = temp
-                                grid[i][j].seated = False
-                        elif i == 'C':
-                            if grid['B'][j] == 0:
-                                grid['B'][j] = cur
-                                grid['B'][j].seated = True if cur.column == 'B' else False
-                                grid[i][j] = 0
-                            elif ord(cur.column) < ord(grid['B'][j].column):
-                                temp = grid['B'][j]
-                                grid['B'][j] = cur
-                                grid[i][j] = temp
-                                grid[i][j].seated = False
-                        elif i == 'D':
-                            if grid['E'][j] == 0:
-                                grid['E'][j] = cur
-                                grid['E'][j].seated = True if cur.column == 'E' else False
-                                grid[i][j] = 0
-                            elif ord(cur.column) > ord(grid['E'][j].column):
-                                temp = grid['E'][j]
-                                grid['E'][j] = cur
+                            elif ord(cur.column) < ord(grid['C'][j].column):
+                                temp = grid['C'][j]
+                                grid['C'][j] = cur
                                 grid[i][j] = temp
                                 grid[i][j].seated = False
                         else:
-                            if cur.timer > 0:
-                                grid[i][j].timer -= 1
-                            else:
-                                if cur.column in list('ABC'):
-                                    if grid['C'][j] == 0:
-                                        grid['C'][j] = cur
-                                        grid['C'][j].seated = True if cur.column == 'C' else False
-                                        grid[i][j] = 0
-                                    elif ord(cur.column) < ord(grid['C'][j].column):
-                                        temp = grid['C'][j]
-                                        grid['C'][j] = cur
-                                        grid[i][j] = temp
-                                        grid[i][j].seated = False
-                                else:
-                                    if grid['D'][j] == 0:
-                                        grid['D'][j] = cur
-                                        grid['D'][j].seated = True if cur.column == 'D' else False
-                                        grid[i][j] = 0
-                                    elif ord(cur.column) > ord(grid['D'][j].column):
-                                        temp = grid['D'][j]
-                                        grid['D'][j] = cur
-                                        grid[i][j] = temp
-                                        grid[i][j].seated = False
-                    else:
-                        if grid[i][j + 1] == 0:
-                            grid[i][j + 1] = cur
-                            grid[i][j] = 0
-                            if cur.row == j + 1:
-                                grid[i][j + 1].timer = random.choices(LOADING_TIME['times'], LOADING_TIME['weights'])[0]
+                            if grid['D'][j] == 0:
+                                grid['D'][j] = cur
+                                grid['D'][j].seated = True if cur.column == 'D' else False
+                                grid[i][j] = 0
+                            elif ord(cur.column) > ord(grid['D'][j].column):
+                                temp = grid['D'][j]
+                                grid['D'][j] = cur
+                                grid[i][j] = temp
+                                grid[i][j].seated = False
+            else:
+                if grid[i][j + 1] == 0:
+                    grid[i][j + 1] = cur
+                    grid[i][j] = 0
+                    if cur.row == j + 1:
+                        grid[i][j + 1].timer = random.choices(LOADING_TIME['times'], LOADING_TIME['weights'])[0]
     if grid[' '][1] == 0:
         try:
             grid[' '][1] = passengers.pop(0)
