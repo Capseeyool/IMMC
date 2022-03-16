@@ -2,13 +2,15 @@ import random
 import numpy as np
 import pandas as pd
 
-def simulation(model, rows=32):
-    MODEL = model
-    ROWS = rows
-    LOADING_TIME = {
+def simulation(
+    model, rows=32,
+    loading_time={
         'times': [0, 1, 2, 3, 4, 5, 6],
         'weights': [1 for i in range(7)]
-    }
+    }):
+    MODEL = model
+    ROWS = rows
+    LOADING_TIME = loading_time
 
     class Passenger:
         def __init__(self, column, row):
@@ -139,3 +141,20 @@ def simulation(model, rows=32):
         time += 1
 
     return time
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+
+    data = [
+        simulation(
+            'BTF', rows=i,
+            loading_time={
+                'times': [3],
+                'weights': [1]
+            }
+        )
+    for i in range(1, 33)]
+
+    print(data)
+    plt.plot(range(1, 33), data)
+    plt.show()
