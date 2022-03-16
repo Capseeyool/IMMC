@@ -39,7 +39,7 @@ figs = []
 image = ax.imshow(np.array(grid, dtype=int))
 figs.append([image])
 
-all = [Passenger(i, j) for i in 'ABCFED' for j in range(ROWS, 0, -1)]
+all = [Passenger(i, j) for i in 'ABCFED' for j in grid.index]
 
 steffen = []
 for k in ['AF', 'BE', 'CD']:
@@ -60,7 +60,7 @@ models = {
     'WMArandom': [Passenger(i, j) for i in 'ABCFED' for j in random.sample(range(ROWS, 0, -1), ROWS)]
 }
 passengers = models[MODEL]
-time = 0
+frames = 0
 
 while len(passengers) or sum(list(map(int, grid[' ']))) != 0:
     for i in 'BECD ':
@@ -70,25 +70,13 @@ while len(passengers) or sum(list(map(int, grid[' ']))) != 0:
                 continue
             if cur.row == j:
                 if i == 'B':
-                    if grid['A'][j] == 0:
-                        grid['A'][j] = cur
-                        grid['A'][j].seated = True
-                        grid[i][j] = 0
-                    else:
-                        temp = grid['A'][j]
-                        grid['A'][j] = cur
-                        grid[i][j] = temp
-                        grid[i][j].seated = False
+                    grid['A'][j] = cur
+                    grid['A'][j].seated = True
+                    grid[i][j] = 0
                 elif i == 'E':
-                    if grid['F'][j] == 0:
-                        grid['F'][j] = cur
-                        grid['F'][j].seated = True
-                        grid[i][j] = 0
-                    else:
-                        temp = grid['F'][j]
-                        grid['F'][j] = cur
-                        grid[i][i] = temp
-                        grid[i][j].seated = False
+                    grid['F'][j] = cur
+                    grid['F'][j].seated = True
+                    grid[i][j] = 0
                 elif i == 'C':
                     if grid['B'][j] == 0:
                         grid['B'][j] = cur
@@ -149,8 +137,8 @@ while len(passengers) or sum(list(map(int, grid[' ']))) != 0:
 
     image = ax.imshow(np.array(grid, dtype=int))
     figs.append([image])
-    time += 1
+    frames += 1
 
 ani = anim.ArtistAnimation(fig, figs, interval=100)
 ani.save(f'{MODEL}/{MODEL}.gif')
-print(time)
+print(frames)
