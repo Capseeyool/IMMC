@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-MODEL = 'steffen'
+MODEL = 'WMArandom'
 ROWS = 32
 LOADING_TIME = {
     'times': [0, 1, 2, 3, 4, 5, 6],

@@ -1,7 +1,7 @@
 import csv
 from simulation import simulation
 
-MODEL = 'WMA'
+MODEL = 'WMArandom'
 
 times = []
 

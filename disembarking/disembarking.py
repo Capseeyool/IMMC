@@ -58,6 +58,7 @@ while np.array(grid, dtype=int).sum():
             if i == ' ':
                 if cur.timer:
                     grid[i][j].timer -= 1
+                    continue
                 if j == 1:
                     continue
                 elif grid[i][j - 1] == 0:
