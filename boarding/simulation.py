@@ -7,8 +7,8 @@ def simulation(model, percentage):
     PERCENTAGE = percentage
     ROWS = 32
     LOADING_TIME = {
-        'times': [0, 6, 7, 8, 9, 12, 14, 16, 18],
-        'weights': [10, 20, 20, 20, 20, 2.5, 2.5, 2.5, 2.5]
+        'times': [6, 7, 8, 9],
+        'weights': [1 for i in range(4)]
     }
 
     class Passenger:
@@ -60,6 +60,8 @@ def simulation(model, percentage):
         passengers.insert(random.randint(1, len(passengers) - 1), temp)
 
     frames = 0
+
+    # passengers = passengers[:int(0.3*len(passengers))]
 
     while len(passengers) or sum(list(map(int, plane[' ']))) != 0:
         for i in 'BECD ':

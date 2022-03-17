@@ -2,7 +2,7 @@ import csv
 import os
 from simulation import simulation
 
-MODEL = 'random'
+MODEL = 'WMArandom'
 PERCENTAGE = 0
 
 times = []
@@ -14,6 +14,6 @@ for i in range(1000):
 if not os.path.exists(f'{MODEL}{PERCENTAGE}'):
     os.mkdir(f'{MODEL}{PERCENTAGE}')
 
-with open(f'{MODEL}{PERCENTAGE}/{MODEL}{PERCENTAGE}_108010.csv', 'w') as f:
+with open(f'{MODEL}{PERCENTAGE}/{MODEL}{PERCENTAGE}.csv', 'w') as f:
     write = csv.writer(f)
     write.writerow(times)
