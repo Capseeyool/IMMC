@@ -68,6 +68,7 @@ models = {
     'WMA': [Passenger(i, j) for i in 'ABCFED' for j in range(ROWS, 0, -1)],
     'WMArandom': [Passenger(i, j) for i in 'ABCFED' for j in random.sample(range(ROWS, 0, -1), ROWS)]
 }
+
 passengers = models[MODEL]
 
 for i in range(PERCENTAGE*len(passengers)//100):
