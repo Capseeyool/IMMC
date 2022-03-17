@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-MODEL = 'WMArandom'
+FOLDER = 'random0'
+MODEL = 'random0_108010'
 
-data = list(pd.read_csv(f'{MODEL}/{MODEL}.csv', header=None).loc[0])
+data = list(pd.read_csv(f'{FOLDER}/{MODEL}.csv', header=None).loc[0])
 
 x = {}
 
@@ -18,5 +19,5 @@ print(np.percentile(data, 95))
 print(np.std(data))
 
 plt.bar(x.keys(), x.values())
-plt.savefig(f'{MODEL}/{MODEL}.png')
+plt.savefig(f'{FOLDER}/{MODEL}.png')
 plt.show()
