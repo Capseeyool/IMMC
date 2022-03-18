@@ -115,6 +115,8 @@ while len(passengers) or plane.loc[0].astype(int).sum() or plane['A '].astype(in
                                     plane[f'{section} '][row] = temp
                                     plane[f'{section} '][row].seated = False
                 else:
+                    if row == 32:
+                        continue
                     if plane[f'{section} '][row + 1] == 0:
                         plane[f'{section} '][row + 1] = cur
                         plane[f'{section} '][row] = 0

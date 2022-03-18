@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-FOLDER = 'WMArandom0'
-MODEL = 'WMArandom0'
+FOLDER = 'test'
+MODEL = 'test'
 
 data = list(pd.read_csv(f'{FOLDER}/{MODEL}.csv', header=None).loc[0])
 

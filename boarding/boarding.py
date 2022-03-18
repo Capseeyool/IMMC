@@ -6,10 +6,6 @@ import pandas as pd
 
 MODEL = 'WMArandom'
 PERCENTAGE = 0
-# LOADING_TIME = {
-#     'times': [0, 1, 2, 3, 4, 5, 6],
-#     'weights': [1 for i in range(7)]
-# }
 LOADING_TIME = {
     'times': [6, 7, 8, 9],
     'weights': [1 for i in range(4)]
